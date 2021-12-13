@@ -20,6 +20,9 @@ using System.Windows;
 using System.Xml;
 using System.IO.Compression;
 using TagLib;
+using Microsoft;
+using Microsoft.CSharp;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace JuiceWRLD
 {
@@ -34,14 +37,12 @@ namespace JuiceWRLD
 
         private void OpenDialog_Click(object sender, EventArgs e)
         {
-            using (var fbd = new FolderBrowserDialog())
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog();
+            dialog.IsFolderPicker = true;
+            dialog.Title = "Select The Folder";
+            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                DialogResult result = fbd.ShowDialog();
-
-                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
-                {
-                    PathText.Text = fbd.SelectedPath;
-                }
+                 PathText.Text = dialog.FileName;
             }
         }
         public void DirSearch(string sDir)
