@@ -53,6 +53,9 @@
             this.OnlyEmptyTitle = new System.Windows.Forms.CheckBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.Remove = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // OpenDialog
@@ -275,12 +278,41 @@
             this.label4.TabIndex = 23;
             this.label4.Text = "< fn > to use file name";
             // 
+            // Remove
+            // 
+            this.Remove.Location = new System.Drawing.Point(384, 141);
+            this.Remove.Name = "Remove";
+            this.Remove.Size = new System.Drawing.Size(77, 20);
+            this.Remove.TabIndex = 25;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(331, 144);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(47, 13);
+            this.label12.TabIndex = 24;
+            this.label12.Text = "Remove";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label13.Location = new System.Drawing.Point(467, 144);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(180, 13);
+            this.label13.TabIndex = 26;
+            this.label13.Text = "Multi = By Juice, Official Visual, etc...";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(797, 211);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.Remove);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.OnlyEmptyTitle);
@@ -339,6 +371,9 @@
         private System.Windows.Forms.CheckBox OnlyEmptyTitle;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox Remove;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
     }
 }
 

@@ -132,7 +132,15 @@ namespace JuiceWRLD
             {
                 string Name = IO.Path.GetFileName(file.FullName);
                 string Path_ = file.FullName;
-
+                string[] R = Remove.Text.Split(',');
+                string TitleFromName = Name.Split('.')[0].Trim();
+                if (!string.IsNullOrWhiteSpace(Remove.Text))
+                {
+                    foreach (string RemoveThis in R)
+                    {
+                        TitleFromName = TitleFromName.Replace(RemoveThis, "");
+                    }
+                }
                 if (Name.Contains(".mp3") || Name.Contains(".m4a") || Name.Contains(".wav"))
                 {
                     if (Backup.Checked == true)
@@ -158,7 +166,7 @@ namespace JuiceWRLD
                             {
                                 if (Title.Text == "< fn >" || Title.Text == "<fn>")
                                 {
-                                    f.Tag.Title = Name.Split('.')[0].Trim();
+                                    f.Tag.Title = TitleFromName;
                                 }
                                 else
                                 {
@@ -170,7 +178,7 @@ namespace JuiceWRLD
                         {
                             if (Title.Text == "< fn >" || Title.Text == "<fn>")
                             {
-                                f.Tag.Title = Name.Split('.')[0].Trim();
+                                f.Tag.Title = TitleFromName;
                             }
                             else
                             {
@@ -197,7 +205,7 @@ namespace JuiceWRLD
 
             if (SubFolders.Checked == true)
             {
-                    DirSearch(PathText.Text);
+                DirSearch(PathText.Text);
             }
         }
 
