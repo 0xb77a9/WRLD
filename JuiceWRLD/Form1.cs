@@ -26,6 +26,7 @@ namespace JuiceWRLD
     public partial class Form1 : Form
     {
         string BackupName;
+        string[] Formats = { ".mp3", ".m4a", ".wav" };
         public Form1()
         {
             InitializeComponent();
@@ -55,6 +56,11 @@ namespace JuiceWRLD
                         {
                             string Name = IO.Path.GetFileName(file.FullName);
                             string Path_ = file.FullName;
+                            string TitleFromName = Name;
+                            foreach (string Temp_ in Formats)
+                            {
+                                TitleFromName = TitleFromName.Replace(Temp_, "");
+                            }
 
                             if (Name.Contains(".mp3") || Name.Contains(".m4a") || Name.Contains(".wav"))
                             {
@@ -81,7 +87,7 @@ namespace JuiceWRLD
                                         {
                                             if (Title.Text == "< fn >" || Title.Text == "<fn>")
                                             {
-                                                f.Tag.Title = Name.Split('.')[0].Trim();
+                                                f.Tag.Title = TitleFromName;
                                             }
                                             else
                                             {
@@ -93,7 +99,7 @@ namespace JuiceWRLD
                                     {
                                         if (Title.Text == "< fn >" || Title.Text == "<fn>")
                                         {
-                                            f.Tag.Title = Name.Split('.')[0].Trim();
+                                            f.Tag.Title = TitleFromName;
                                         }
                                         else
                                         {
@@ -133,7 +139,11 @@ namespace JuiceWRLD
                 string Name = IO.Path.GetFileName(file.FullName);
                 string Path_ = file.FullName;
                 string[] R = Remove.Text.Split(',');
-                string TitleFromName = Name.Split('.')[0].Trim();
+                string TitleFromName = Name;
+                foreach (string Temp_ in Formats)
+                {
+                    TitleFromName = TitleFromName.Replace(Temp_, "");
+                }
                 if (!string.IsNullOrWhiteSpace(Remove.Text))
                 {
                     foreach (string RemoveThis in R)
