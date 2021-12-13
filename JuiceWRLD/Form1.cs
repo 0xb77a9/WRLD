@@ -73,9 +73,46 @@ namespace JuiceWRLD
                                     string[] Final = Artist.Text.Split(',');
                                     f.Tag.Artists = Final;
                                 }
-                                if (string.IsNullOrWhiteSpace(Title.Text))
+                                if (!string.IsNullOrWhiteSpace(Title.Text))
                                 {
-                                    f.Tag.Title = Name.Split('.')[0].Trim();
+                                    if (OnlyEmptyTitle.Checked == true)
+                                    {
+                                        if (string.IsNullOrWhiteSpace(f.Tag.Title))
+                                        {
+                                            if (Title.Text == "< fn >" || Title.Text == "<fn>")
+                                            {
+                                                f.Tag.Title = Name.Split('.')[0].Trim();
+                                            }
+                                            else
+                                            {
+                                                f.Tag.Title = Title.Text;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (Title.Text == "< fn >" || Title.Text == "<fn>")
+                                        {
+                                            f.Tag.Title = Name.Split('.')[0].Trim();
+                                        }
+                                        else
+                                        {
+                                            f.Tag.Title = Title.Text;
+                                        }
+                                    }
+                                }
+                                if (ChangeImage.Checked == true)
+                                {
+                                    if (!string.IsNullOrWhiteSpace(ImagePath.Text))
+                                    {
+                                        var imgPath = ImagePath.Text;
+                                        if (System.IO.File.Exists(imgPath))
+                                        {
+                                            var pic = new IPicture[1];
+                                            pic[0] = new Picture(imgPath);
+                                            f.Tag.Pictures = pic;
+                                        }
+                                    }
                                 }
                                 f.Save();
                             }
@@ -113,9 +150,46 @@ namespace JuiceWRLD
                         string[] Final = Artist.Text.Split(',');
                         f.Tag.Artists = Final;
                     }
-                    if (string.IsNullOrWhiteSpace(Title.Text))
+                    if (!string.IsNullOrWhiteSpace(Title.Text))
                     {
-                        f.Tag.Title = Name.Split('.')[0].Trim();
+                        if (OnlyEmptyTitle.Checked == true)
+                        {
+                            if (string.IsNullOrWhiteSpace(f.Tag.Title))
+                            {
+                                if (Title.Text == "< fn >" || Title.Text == "<fn>")
+                                {
+                                    f.Tag.Title = Name.Split('.')[0].Trim();
+                                }
+                                else
+                                {
+                                    f.Tag.Title = Title.Text;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (Title.Text == "< fn >" || Title.Text == "<fn>")
+                            {
+                                f.Tag.Title = Name.Split('.')[0].Trim();
+                            }
+                            else
+                            {
+                                f.Tag.Title = Title.Text;
+                            }
+                        }
+                    }
+                    if (ChangeImage.Checked == true)
+                    {
+                        if (!string.IsNullOrWhiteSpace(ImagePath.Text))
+                        {
+                            var imgPath = ImagePath.Text;
+                            if (System.IO.File.Exists(imgPath))
+                            {
+                                var pic = new IPicture[1];
+                                pic[0] = new Picture(imgPath);
+                                f.Tag.Pictures = pic;
+                            }
+                        }
                     }
                     f.Save();
                 }
@@ -125,6 +199,30 @@ namespace JuiceWRLD
             {
                     DirSearch(PathText.Text);
             }
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+
+            openFileDialog1.Filter = "JPG & PNG|*.jpg;*.png";
+            openFileDialog1.RestoreDirectory = true;
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string selectedFileName = openFileDialog1.FileName;
+                ImagePath.Text = selectedFileName;
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
