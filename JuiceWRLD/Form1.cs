@@ -23,7 +23,6 @@ using TagLib;
 using Microsoft;
 using Microsoft.CSharp;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using NAudio;
 
 namespace JuiceWRLD
 {
