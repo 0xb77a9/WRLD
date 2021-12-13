@@ -166,7 +166,6 @@ namespace JuiceWRLD
                         {
                             File f = File.Create(Path_, TagLib.ReadStyle.Average);
                             var duration = (int)f.Properties.Duration.TotalSeconds;
-                            MessageBox.Show(Convert.ToString(duration));
                             if (duration <= 0)
                             {
                                 IO.Directory.CreateDirectory(IO.Path.GetDirectoryName(file.FullName) + "\\Broken");
