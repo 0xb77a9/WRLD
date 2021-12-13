@@ -102,6 +102,7 @@
             this.Title.Name = "Title";
             this.Title.Size = new System.Drawing.Size(100, 20);
             this.Title.TabIndex = 5;
+            this.Title.Text = "<fn>";
             // 
             // label2
             // 
