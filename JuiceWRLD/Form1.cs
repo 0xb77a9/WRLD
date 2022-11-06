@@ -23,13 +23,16 @@ using TagLib;
 using Microsoft;
 using Microsoft.CSharp;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using System.Globalization;
 
 namespace JuiceWRLD
 {
     public partial class Form1 : Form
     {
         string BackupName;
-        string[] Formats = { ".mp3", ".m4a", ".wav" };
+        int Total = 0;
+        int fileCount = 1;
+        string[] Formats = { ".mp3", ".m4a" };
         public Form1()
         {
             InitializeComponent();
@@ -45,35 +48,113 @@ namespace JuiceWRLD
                 PathText.Text = dialog.FileName;
             }
         }
+        public string Replace_(string Text, string Case, string ReplaceWith)
+        {
+            var regex = new Regex(Case, RegexOptions.IgnoreCase);
+            return regex.Replace(Text, ReplaceWith);
+        }
         public void DirSearch(string sDir)
         {
             try
             {
-                foreach (string d in IO.Directory.GetDirectories(sDir))
+                if (!sDir.Contains("Backup") && !sDir.Contains("Broken"))
                 {
-                    if (!d.Contains("Backup") && !d.Contains("Broken") && d != PathText.Text)
+                    string[] files = IO.Directory.GetFiles(sDir, "*.mp3", IO.SearchOption.AllDirectories);
+                    foreach (var file in files)
                     {
-                        foreach (IO.FileInfo file in new IO.DirectoryInfo(d).GetFiles())
+                        string Name = IO.Path.GetFileName(file);
+                        string Path_ = file;
+                        if (SubFolders.Checked != true)
                         {
-                            string Name = IO.Path.GetFileName(file.FullName);
-                            string Path_ = file.FullName;
-                            string TitleFromName = Name;
-                            foreach (string Temp_ in Formats)
+                            fileCount = (from file2 in IO.Directory.EnumerateFiles(PathText.Text, "*.*", IO.SearchOption.TopDirectoryOnly)
+                                         select file2).Count();
+                        }
+                        else
+                        {
+                            fileCount = (from file2 in IO.Directory.EnumerateFiles(PathText.Text, "*.*", IO.SearchOption.AllDirectories)
+                                         select file2).Count();
+                        }
+                        string TitleFromName = Name.Substring(Convert.ToInt32(FirstShit.Value));
+                        foreach (string Temp_ in Formats)
+                        {
+                            TitleFromName = TitleFromName.Replace(Temp_, "");
+                        }
+                        if (Name.Contains(".mp3") || Name.Contains(".m4a"))
+                        {
+                            if (Backup.Checked == true)
                             {
-                                TitleFromName = TitleFromName.Replace(Temp_, "");
+                                IO.Directory.CreateDirectory(IO.Path.GetDirectoryName(Path_) + BackupName);
+                                IO.File.Copy(Path_, IO.Path.GetDirectoryName(Path_) + BackupName + Name, true);
                             }
-
-                            if (Name.Contains(".mp3") || Name.Contains(".m4a") || Name.Contains(".wav"))
+                            try
                             {
-                                if (Backup.Checked == true)
+                                File f = File.Create(Path_, TagLib.ReadStyle.Average);
+                                var duration = (int)f.Properties.Duration.TotalSeconds;
+                                if (duration <= 0)
                                 {
-                                    IO.Directory.CreateDirectory(IO.Path.GetDirectoryName(file.FullName) + BackupName);
-                                    IO.File.Copy(file.FullName, IO.Path.GetDirectoryName(file.FullName) + BackupName + Name, true);
+                                    IO.Directory.CreateDirectory(IO.Path.GetDirectoryName(Path_) + "\\Broken");
+                                    IO.File.Move(Path_, IO.Path.GetDirectoryName(Path_) + "\\Broken\\" + Name);
                                 }
+                            }
+                            catch
+                            {
+                                IO.Directory.CreateDirectory(IO.Path.GetDirectoryName(Path_) + "\\Broken");
+                                IO.File.Move(Path_, IO.Path.GetDirectoryName(Path_) + "\\Broken\\" + Name);
+                            }
+                            try
+                            {
                                 File f = File.Create(Path_);
                                 if (!string.IsNullOrWhiteSpace(Album.Text))
                                 {
-                                    f.Tag.Album = Album.Text;
+                                    if (AlbumSmartMode.Checked != true)
+                                    {
+                                        if (AlbumUseFolderName.Checked == true)
+                                        {
+                                            string[] Final = Remove_2.Text.Split(',');
+                                            string dirName = new IO.DirectoryInfo(Path_.Replace(Name, "")).Name;
+                                            foreach (string nigga in Final)
+                                            {
+                                                dirName = dirName.Replace(nigga, "");
+                                            }
+                                            f.Tag.Album = dirName;
+                                        }
+                                        else
+                                        {
+                                            f.Tag.Album = Album.Text;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        string TitleFromName_ = Name.Substring(Convert.ToInt32(FirstShit.Value));
+                                        if (TitleFromName_.ToLower().Contains("aca") || TitleFromName_.ToLower().Contains("acapella") || TitleFromName_.ToLower().Contains("instrumental") || TitleFromName_.ToLower().Contains("inst"))
+                                        {
+                                            if (TitleFromName_.ToLower().Contains("aca") || TitleFromName_.ToLower().Contains("acapella"))
+                                            {
+                                                f.Tag.Album = "Acapella";
+                                            }
+                                            else if (TitleFromName_.ToLower().Contains("instrumental") || TitleFromName_.ToLower().Contains("inst"))
+                                            {
+                                                f.Tag.Album = "Instrumental";
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (AlbumUseFolderName.Checked == true)
+                                            {
+                                                string[] Final = Remove_2.Text.Split(',');
+                                                string dirName = new IO.DirectoryInfo(Path_.Replace(Name, "")).Name;
+                                                foreach (string nigga in Final)
+                                                {
+                                                    dirName = dirName.Replace(nigga, "");
+                                                }
+                                                f.Tag.Album = dirName;
+                                            }
+                                            else
+                                            {
+                                                f.Tag.Album = Album.Text;
+                                            }
+                                        }
+                                    }
                                 }
                                 if (!string.IsNullOrWhiteSpace(Artist.Text))
                                 {
@@ -82,13 +163,34 @@ namespace JuiceWRLD
                                 }
                                 if (!string.IsNullOrWhiteSpace(Title.Text))
                                 {
+                                    if (BeautifyTitle.Checked == true)
+                                    {
+                                        TitleFromName = Replace_(TitleFromName, "dont", "Don't");
+                                        TitleFromName = Replace_(TitleFromName, "cant", "Can't");
+                                    }
+                                    string[] R = Remove.Text.Split(',');
+                                    if (!string.IsNullOrWhiteSpace(Remove.Text))
+                                    {
+                                        foreach (string RemoveThis in R)
+                                        {
+                                            TitleFromName = TitleFromName.Replace(RemoveThis, "");
+                                        }
+                                    }
                                     if (OnlyEmptyTitle.Checked == true)
                                     {
                                         if (string.IsNullOrWhiteSpace(f.Tag.Title))
                                         {
                                             if (Title.Text == "< fn >" || Title.Text == "<fn>")
                                             {
-                                                f.Tag.Title = TitleFromName;
+                                                if (EWC.Checked == true)
+                                                {
+                                                    TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+                                                    f.Tag.Title = textInfo.ToTitleCase(TitleFromName.ToLower());
+                                                }
+                                                else
+                                                {
+                                                    f.Tag.Title = TitleFromName;
+                                                }
                                             }
                                             else
                                             {
@@ -100,7 +202,15 @@ namespace JuiceWRLD
                                     {
                                         if (Title.Text == "< fn >" || Title.Text == "<fn>")
                                         {
-                                            f.Tag.Title = TitleFromName;
+                                            if (EWC.Checked == true)
+                                            {
+                                                TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+                                                f.Tag.Title = textInfo.ToTitleCase(TitleFromName.ToLower());
+                                            }
+                                            else
+                                            {
+                                                f.Tag.Title = TitleFromName;
+                                            }
                                         }
                                         else
                                         {
@@ -121,7 +231,14 @@ namespace JuiceWRLD
                                         }
                                     }
                                 }
+                                Total = Total + 1;
+                                TotalLabel.Text = Name + " (" + Total + " / " + fileCount + " ) ";
+                                Thread.Sleep(100);
                                 f.Save();
+                            }
+                            catch
+                            {
+
                             }
                         }
                     }
@@ -141,26 +258,27 @@ namespace JuiceWRLD
                 {
                     string Name = IO.Path.GetFileName(file.FullName);
                     string Path_ = file.FullName;
-                    string[] R = Remove.Text.Split(',');
-                    string TitleFromName = Name;
+                    if (SubFolders.Checked != true)
+                    {
+                        fileCount = (from file2 in IO.Directory.EnumerateFiles(PathText.Text, "*.*", IO.SearchOption.TopDirectoryOnly)
+                                     select file2).Count();
+                    }
+                    else
+                    {
+                        fileCount = (from file2 in IO.Directory.EnumerateFiles(PathText.Text, "*.*", IO.SearchOption.AllDirectories)
+                                     select file2).Count();
+                    }
+                    string TitleFromName = Name.Substring(Convert.ToInt32(FirstShit.Value));
                     foreach (string Temp_ in Formats)
                     {
                         TitleFromName = TitleFromName.Replace(Temp_, "");
                     }
-
-                    if (!string.IsNullOrWhiteSpace(Remove.Text))
-                    {
-                        foreach (string RemoveThis in R)
-                        {
-                            TitleFromName = TitleFromName.Replace(RemoveThis, "");
-                        }
-                    }
-                    if (Name.Contains(".mp3") || Name.Contains(".m4a") || Name.Contains(".wav"))
+                    if (Name.Contains(".mp3") || Name.Contains(".m4a"))
                     {
                         if (Backup.Checked == true)
                         {
-                            IO.Directory.CreateDirectory(IO.Path.GetDirectoryName(file.FullName) + BackupName);
-                            IO.File.Copy(file.FullName, IO.Path.GetDirectoryName(file.FullName) + BackupName + Name, true);
+                            IO.Directory.CreateDirectory(IO.Path.GetDirectoryName(Path_) + BackupName);
+                            IO.File.Copy(Path_, IO.Path.GetDirectoryName(Path_) + BackupName + Name, true);
                         }
                         try
                         {
@@ -168,36 +286,110 @@ namespace JuiceWRLD
                             var duration = (int)f.Properties.Duration.TotalSeconds;
                             if (duration <= 0)
                             {
-                                IO.Directory.CreateDirectory(IO.Path.GetDirectoryName(file.FullName) + "\\Broken");
-                                IO.File.Move(file.FullName, IO.Path.GetDirectoryName(file.FullName) + "\\Broken\\" + Name);
+                                IO.Directory.CreateDirectory(IO.Path.GetDirectoryName(Path_) + "\\Broken");
+                                IO.File.Move(Path_, IO.Path.GetDirectoryName(Path_) + "\\Broken\\" + Name);
                             }
                         }
                         catch
                         {
-                            IO.Directory.CreateDirectory(IO.Path.GetDirectoryName(file.FullName) + "\\Broken");
-                            IO.File.Move(file.FullName, IO.Path.GetDirectoryName(file.FullName) + "\\Broken\\" + Name);
+                            IO.Directory.CreateDirectory(IO.Path.GetDirectoryName(Path_) + "\\Broken");
+                            IO.File.Move(Path_, IO.Path.GetDirectoryName(Path_) + "\\Broken\\" + Name);
                         }
                         try
                         {
                             File f = File.Create(Path_);
                             if (!string.IsNullOrWhiteSpace(Album.Text))
                             {
-                                f.Tag.Album = Album.Text;
+                                if (AlbumSmartMode.Checked != true)
+                                {
+                                    if (AlbumUseFolderName.Checked == true)
+                                    {
+                                        string[] Final = Remove_2.Text.Split(',');
+                                        string dirName = new IO.DirectoryInfo(Path_.Replace(Name, "")).Name;
+                                        foreach (string nigga in Final)
+                                        {
+                                            dirName = dirName.Replace(nigga, "");
+                                        }
+                                        f.Tag.Album = dirName;
+                                    }
+                                    else
+                                    {
+                                        f.Tag.Album = Album.Text;
+                                    }
+                                }
+                                else
+                                {
+                                    string TitleFromName_ = Name.Substring(Convert.ToInt32(FirstShit.Value));
+                                    if (TitleFromName_.ToLower().Contains("aca") || TitleFromName_.ToLower().Contains("acapella") || TitleFromName_.ToLower().Contains("instrumental") || TitleFromName_.ToLower().Contains("inst"))
+                                    {
+                                        if (TitleFromName_.ToLower().Contains("aca") || TitleFromName_.ToLower().Contains("acapella"))
+                                        {
+                                            f.Tag.Album = "Acapella";
+                                        }
+                                        else if (TitleFromName_.ToLower().Contains("instrumental") || TitleFromName_.ToLower().Contains("inst"))
+                                        {
+                                            f.Tag.Album = "Instrumental";
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (AlbumUseFolderName.Checked == true)
+                                        {
+                                            string[] Final = Remove_2.Text.Split(',');
+                                            string dirName = new IO.DirectoryInfo(Path_.Replace(Name, "")).Name;
+                                            foreach (string nigga in Final)
+                                            {
+                                                dirName = dirName.Replace(nigga, "");
+                                            }
+                                            f.Tag.Album = dirName;
+                                        }
+                                        else
+                                        {
+                                            f.Tag.Album = Album.Text;
+                                        }
+                                    }
+                                }
                             }
-                            if (!string.IsNullOrWhiteSpace(Artist.Text))
+                            if ( !string.IsNullOrWhiteSpace( Artist.Text ) )
                             {
-                                string[] Final = Artist.Text.Split(',');
+                                string[] Final = Artist.Text.Split( ',' );
                                 f.Tag.Artists = Final;
+                            }
+                            if ( !string.IsNullOrWhiteSpace( Comment.Text ) )
+                            {
+                                f.Tag.Comment = Comment.Text;
                             }
                             if (!string.IsNullOrWhiteSpace(Title.Text))
                             {
+                                if (BeautifyTitle.Checked == true)
+                                {
+                                    TitleFromName = Replace_(TitleFromName, "dont", "Don't");
+                                    TitleFromName = Replace_( TitleFromName, "cant", "Can't" );
+                                    TitleFromName = Replace_( TitleFromName, "isnt", "Isn't" );
+                                }
+                                string[] R = Remove.Text.Split(',');
+                                if (!string.IsNullOrWhiteSpace(Remove.Text))
+                                {
+                                    foreach (string RemoveThis in R)
+                                    {
+                                        TitleFromName = TitleFromName.Replace(RemoveThis, "");
+                                    }
+                                }
                                 if (OnlyEmptyTitle.Checked == true)
                                 {
                                     if (string.IsNullOrWhiteSpace(f.Tag.Title))
                                     {
                                         if (Title.Text == "< fn >" || Title.Text == "<fn>")
                                         {
-                                            f.Tag.Title = TitleFromName;
+                                            if (EWC.Checked == true)
+                                            {
+                                                TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+                                                f.Tag.Title = textInfo.ToTitleCase(TitleFromName.ToLower());
+                                            }
+                                            else
+                                            {
+                                                f.Tag.Title = TitleFromName;
+                                            }
                                         }
                                         else
                                         {
@@ -209,7 +401,15 @@ namespace JuiceWRLD
                                 {
                                     if (Title.Text == "< fn >" || Title.Text == "<fn>")
                                     {
-                                        f.Tag.Title = TitleFromName;
+                                        if (EWC.Checked == true)
+                                        {
+                                            TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+                                            f.Tag.Title = textInfo.ToTitleCase(TitleFromName.ToLower());
+                                        }
+                                        else
+                                        {
+                                            f.Tag.Title = TitleFromName;
+                                        }
                                     }
                                     else
                                     {
@@ -230,6 +430,9 @@ namespace JuiceWRLD
                                     }
                                 }
                             }
+                            Total = Total + 1;
+                            TotalLabel.Text = Name + " (" + Total + " / " + fileCount + " ) ";
+                            Thread.Sleep(100);
                             f.Save();
                         }
                         catch
@@ -270,6 +473,15 @@ namespace JuiceWRLD
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AlbumSmartMode_CheckedChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void Form1_Load ( object sender, EventArgs e )
         {
 
         }

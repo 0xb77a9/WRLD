@@ -56,11 +56,22 @@
             this.Remove = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
+            this.AlbumUseFolderName = new System.Windows.Forms.CheckBox();
+            this.FirstShit = new System.Windows.Forms.NumericUpDown();
+            this.EWC = new System.Windows.Forms.CheckBox();
+            this.TotalLabel = new System.Windows.Forms.Label();
+            this.Remove_2 = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.AlbumSmartMode = new System.Windows.Forms.CheckBox();
+            this.BeautifyTitle = new System.Windows.Forms.CheckBox();
+            this.Comment = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.FirstShit)).BeginInit();
             this.SuspendLayout();
             // 
             // OpenDialog
             // 
-            this.OpenDialog.Location = new System.Drawing.Point(745, 12);
+            this.OpenDialog.Location = new System.Drawing.Point(880, 12);
             this.OpenDialog.Name = "OpenDialog";
             this.OpenDialog.Size = new System.Drawing.Size(40, 20);
             this.OpenDialog.TabIndex = 0;
@@ -72,7 +83,7 @@
             // 
             this.PathText.Location = new System.Drawing.Point(47, 12);
             this.PathText.Name = "PathText";
-            this.PathText.Size = new System.Drawing.Size(692, 20);
+            this.PathText.Size = new System.Drawing.Size(824, 20);
             this.PathText.TabIndex = 1;
             // 
             // openFileDialog1
@@ -82,7 +93,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 105);
+            this.label1.Location = new System.Drawing.Point(9, 120);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(30, 13);
             this.label1.TabIndex = 2;
@@ -90,7 +101,7 @@
             // 
             // Artist
             // 
-            this.Artist.Location = new System.Drawing.Point(40, 102);
+            this.Artist.Location = new System.Drawing.Point(40, 117);
             this.Artist.Name = "Artist";
             this.Artist.Size = new System.Drawing.Size(100, 20);
             this.Artist.TabIndex = 3;
@@ -98,7 +109,7 @@
             // 
             // Title
             // 
-            this.Title.Location = new System.Drawing.Point(361, 102);
+            this.Title.Location = new System.Drawing.Point(377, 117);
             this.Title.Name = "Title";
             this.Title.Size = new System.Drawing.Size(100, 20);
             this.Title.TabIndex = 5;
@@ -107,7 +118,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(330, 105);
+            this.label2.Location = new System.Drawing.Point(346, 120);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(27, 13);
             this.label2.TabIndex = 4;
@@ -115,7 +126,7 @@
             // 
             // Album
             // 
-            this.Album.Location = new System.Drawing.Point(685, 102);
+            this.Album.Location = new System.Drawing.Point(802, 117);
             this.Album.Name = "Album";
             this.Album.Size = new System.Drawing.Size(100, 20);
             this.Album.TabIndex = 7;
@@ -124,7 +135,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(645, 105);
+            this.label3.Location = new System.Drawing.Point(762, 120);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(36, 13);
             this.label3.TabIndex = 6;
@@ -132,9 +143,9 @@
             // 
             // JuiceIt
             // 
-            this.JuiceIt.Location = new System.Drawing.Point(208, 178);
+            this.JuiceIt.Location = new System.Drawing.Point(208, 259);
             this.JuiceIt.Name = "JuiceIt";
-            this.JuiceIt.Size = new System.Drawing.Size(407, 23);
+            this.JuiceIt.Size = new System.Drawing.Size(533, 23);
             this.JuiceIt.TabIndex = 8;
             this.JuiceIt.Text = "Juice It!";
             this.JuiceIt.UseVisualStyleBackColor = true;
@@ -144,7 +155,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label5.Location = new System.Drawing.Point(9, 125);
+            this.label5.Location = new System.Drawing.Point(146, 136);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(158, 13);
             this.label5.TabIndex = 10;
@@ -154,7 +165,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label6.Location = new System.Drawing.Point(146, 105);
+            this.label6.Location = new System.Drawing.Point(146, 101);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(124, 13);
             this.label6.TabIndex = 11;
@@ -164,7 +175,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label7.Location = new System.Drawing.Point(9, 86);
+            this.label7.Location = new System.Drawing.Point(9, 101);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(112, 13);
             this.label7.TabIndex = 12;
@@ -174,7 +185,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label8.Location = new System.Drawing.Point(645, 125);
+            this.label8.Location = new System.Drawing.Point(762, 140);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(158, 13);
             this.label8.TabIndex = 13;
@@ -185,7 +196,7 @@
             this.Backup.AutoSize = true;
             this.Backup.Checked = true;
             this.Backup.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.Backup.Location = new System.Drawing.Point(10, 181);
+            this.Backup.Location = new System.Drawing.Point(10, 262);
             this.Backup.Name = "Backup";
             this.Backup.Size = new System.Drawing.Size(63, 17);
             this.Backup.TabIndex = 14;
@@ -195,7 +206,7 @@
             // SubFolders
             // 
             this.SubFolders.AutoSize = true;
-            this.SubFolders.Location = new System.Drawing.Point(630, 181);
+            this.SubFolders.Location = new System.Drawing.Point(747, 262);
             this.SubFolders.Name = "SubFolders";
             this.SubFolders.Size = new System.Drawing.Size(162, 17);
             this.SubFolders.TabIndex = 15;
@@ -206,12 +217,12 @@
             // 
             this.ImagePath.Location = new System.Drawing.Point(79, 48);
             this.ImagePath.Name = "ImagePath";
-            this.ImagePath.Size = new System.Drawing.Size(660, 20);
+            this.ImagePath.Size = new System.Drawing.Size(792, 20);
             this.ImagePath.TabIndex = 17;
             // 
             // ImageSearch
             // 
-            this.ImageSearch.Location = new System.Drawing.Point(745, 48);
+            this.ImageSearch.Location = new System.Drawing.Point(880, 48);
             this.ImageSearch.Name = "ImageSearch";
             this.ImageSearch.Size = new System.Drawing.Size(40, 20);
             this.ImageSearch.TabIndex = 16;
@@ -241,7 +252,7 @@
             // ChangeImage
             // 
             this.ChangeImage.AutoSize = true;
-            this.ChangeImage.Location = new System.Drawing.Point(79, 181);
+            this.ChangeImage.Location = new System.Drawing.Point(79, 262);
             this.ChangeImage.Name = "ChangeImage";
             this.ChangeImage.Size = new System.Drawing.Size(126, 17);
             this.ChangeImage.TabIndex = 20;
@@ -251,7 +262,7 @@
             // OnlyEmptyTitle
             // 
             this.OnlyEmptyTitle.AutoSize = true;
-            this.OnlyEmptyTitle.Location = new System.Drawing.Point(334, 82);
+            this.OnlyEmptyTitle.Location = new System.Drawing.Point(350, 97);
             this.OnlyEmptyTitle.Name = "OnlyEmptyTitle";
             this.OnlyEmptyTitle.Size = new System.Drawing.Size(120, 17);
             this.OnlyEmptyTitle.TabIndex = 21;
@@ -263,7 +274,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label11.Location = new System.Drawing.Point(330, 125);
+            this.label11.Location = new System.Drawing.Point(346, 140);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(158, 13);
             this.label11.TabIndex = 22;
@@ -273,7 +284,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label4.Location = new System.Drawing.Point(467, 105);
+            this.label4.Location = new System.Drawing.Point(483, 120);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(111, 13);
             this.label4.TabIndex = 23;
@@ -281,7 +292,7 @@
             // 
             // Remove
             // 
-            this.Remove.Location = new System.Drawing.Point(384, 141);
+            this.Remove.Location = new System.Drawing.Point(400, 156);
             this.Remove.Name = "Remove";
             this.Remove.Size = new System.Drawing.Size(77, 20);
             this.Remove.TabIndex = 25;
@@ -289,7 +300,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(331, 144);
+            this.label12.Location = new System.Drawing.Point(347, 159);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(47, 13);
             this.label12.TabIndex = 24;
@@ -299,18 +310,120 @@
             // 
             this.label13.AutoSize = true;
             this.label13.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label13.Location = new System.Drawing.Point(467, 144);
+            this.label13.Location = new System.Drawing.Point(483, 159);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(180, 13);
             this.label13.TabIndex = 26;
             this.label13.Text = "Multi = By Juice, Official Visual, etc...";
+            // 
+            // AlbumUseFolderName
+            // 
+            this.AlbumUseFolderName.AutoSize = true;
+            this.AlbumUseFolderName.Location = new System.Drawing.Point(765, 97);
+            this.AlbumUseFolderName.Name = "AlbumUseFolderName";
+            this.AlbumUseFolderName.Size = new System.Drawing.Size(106, 17);
+            this.AlbumUseFolderName.TabIndex = 27;
+            this.AlbumUseFolderName.Text = "Use Folder name";
+            this.AlbumUseFolderName.UseVisualStyleBackColor = true;
+            // 
+            // FirstShit
+            // 
+            this.FirstShit.Location = new System.Drawing.Point(502, 136);
+            this.FirstShit.Name = "FirstShit";
+            this.FirstShit.Size = new System.Drawing.Size(88, 20);
+            this.FirstShit.TabIndex = 29;
+            // 
+            // EWC
+            // 
+            this.EWC.AutoSize = true;
+            this.EWC.Location = new System.Drawing.Point(476, 97);
+            this.EWC.Name = "EWC";
+            this.EWC.Size = new System.Drawing.Size(114, 17);
+            this.EWC.TabIndex = 30;
+            this.EWC.Text = "Every word Capital";
+            this.EWC.UseVisualStyleBackColor = true;
+            // 
+            // TotalLabel
+            // 
+            this.TotalLabel.AutoSize = true;
+            this.TotalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.TotalLabel.Location = new System.Drawing.Point(205, 239);
+            this.TotalLabel.Name = "TotalLabel";
+            this.TotalLabel.Size = new System.Drawing.Size(30, 17);
+            this.TotalLabel.TabIndex = 31;
+            this.TotalLabel.Text = "Idle";
+            // 
+            // Remove_2
+            // 
+            this.Remove_2.Location = new System.Drawing.Point(815, 159);
+            this.Remove_2.Name = "Remove_2";
+            this.Remove_2.Size = new System.Drawing.Size(87, 20);
+            this.Remove_2.TabIndex = 33;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(762, 162);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(47, 13);
+            this.label15.TabIndex = 32;
+            this.label15.Text = "Remove";
+            // 
+            // AlbumSmartMode
+            // 
+            this.AlbumSmartMode.AutoSize = true;
+            this.AlbumSmartMode.Location = new System.Drawing.Point(765, 185);
+            this.AlbumSmartMode.Name = "AlbumSmartMode";
+            this.AlbumSmartMode.Size = new System.Drawing.Size(83, 17);
+            this.AlbumSmartMode.TabIndex = 34;
+            this.AlbumSmartMode.Text = "Smart Mode";
+            this.AlbumSmartMode.UseVisualStyleBackColor = true;
+            this.AlbumSmartMode.CheckedChanged += new System.EventHandler(this.AlbumSmartMode_CheckedChanged);
+            // 
+            // BeautifyTitle
+            // 
+            this.BeautifyTitle.AutoSize = true;
+            this.BeautifyTitle.Location = new System.Drawing.Point(350, 182);
+            this.BeautifyTitle.Name = "BeautifyTitle";
+            this.BeautifyTitle.Size = new System.Drawing.Size(64, 17);
+            this.BeautifyTitle.TabIndex = 35;
+            this.BeautifyTitle.Text = "Beautify";
+            this.BeautifyTitle.UseVisualStyleBackColor = true;
+            // 
+            // Comment
+            // 
+            this.Comment.Location = new System.Drawing.Point(10, 162);
+            this.Comment.Multiline = true;
+            this.Comment.Name = "Comment";
+            this.Comment.Size = new System.Drawing.Size(260, 74);
+            this.Comment.TabIndex = 36;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(9, 146);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(51, 13);
+            this.label14.TabIndex = 37;
+            this.label14.Text = "Comment";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(797, 211);
+            this.ClientSize = new System.Drawing.Size(932, 291);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.Comment);
+            this.Controls.Add(this.BeautifyTitle);
+            this.Controls.Add(this.AlbumSmartMode);
+            this.Controls.Add(this.Remove_2);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.TotalLabel);
+            this.Controls.Add(this.EWC);
+            this.Controls.Add(this.FirstShit);
+            this.Controls.Add(this.AlbumUseFolderName);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.Remove);
             this.Controls.Add(this.label12);
@@ -341,6 +454,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "WRLDofVibes     By BETA#0999";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.FirstShit)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -375,6 +490,16 @@
         private System.Windows.Forms.TextBox Remove;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.CheckBox AlbumUseFolderName;
+        private System.Windows.Forms.NumericUpDown FirstShit;
+        private System.Windows.Forms.CheckBox EWC;
+        private System.Windows.Forms.Label TotalLabel;
+        private System.Windows.Forms.TextBox Remove_2;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.CheckBox AlbumSmartMode;
+        private System.Windows.Forms.CheckBox BeautifyTitle;
+        private System.Windows.Forms.TextBox Comment;
+        private System.Windows.Forms.Label label14;
     }
 }
 
